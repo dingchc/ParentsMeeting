@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ParentsMeeting</string>
+    <string name="input_learning_section">请选择学段</string>
+    <string name="input_learning_year">请选择入学年份</string>
+    <string name="input_student_name">请输入学生姓名</string>
+    <string name="input_select_role">请选择身份</string>
+    <string name="login">登录</string>
+    <string name="loading">加载中&#8230;</string>
+    <string name="cancel">取消</string>
 </resources>

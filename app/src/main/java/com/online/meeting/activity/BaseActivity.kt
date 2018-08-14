@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.online.meeting.R
 import com.online.meeting.utils.AppLogger
 import com.online.meeting.widget.PageSlidingPaneLayout
+import com.online.meeting.widget.TSToolbar
+import com.online.meeting.widget.TSToolbar.ToolbarClickListener
 
 /**
  * Activity父类
@@ -15,8 +17,7 @@ import com.online.meeting.widget.PageSlidingPaneLayout
  * @author ding
  * Created by Ding on 2018/8/13.
  */
-abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideListener {
-
+abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideListener, ToolbarClickListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +44,21 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
         AppLogger.i("onPanelSlide " + slideOffset)
     }
 
+    /**
+     * Toolbar点击
+     * @param type 类型
+     */
+    override fun onToolbarClick(type: Int) {
+
+    }
+
     // ######################################## private fun ########################################
 
     /**
      * 是否支持滑动返回
      * @return true 支持滑动返回、false 不支持
      */
-    private fun isSupportSwipeBack() : Boolean {
+    private fun isSupportSwipeBack(): Boolean {
         return false
     }
 

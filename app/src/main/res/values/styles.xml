@@ -53,6 +53,9 @@
         <item name="android:height">?actionBarSize</item>
     </style>
 
+    <style name="PMStyle.InputText" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">15sp</item>
+    </style>
 
 
 </resources>
