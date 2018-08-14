@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.online.meeting.R
-import com.online.meeting.viewmodel.VMFirstActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -15,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
 
         Handler().postDelayed({
-            val intent = Intent(this@SplashActivity, VMFirstActivity::class.java)
+            val intent = Intent(this@SplashActivity, RegisterActivity::class.java)
 
             startActivity(intent)
 

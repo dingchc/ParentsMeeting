@@ -50,7 +50,7 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
      * @return true 支持滑动返回、false 不支持
      */
     private fun isSupportSwipeBack() : Boolean {
-        return true
+        return false
     }
 
     /**
