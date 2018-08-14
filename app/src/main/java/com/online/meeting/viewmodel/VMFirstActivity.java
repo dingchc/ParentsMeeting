@@ -2,8 +2,10 @@ package com.online.meeting.viewmodel;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.online.meeting.R;
+import com.online.meeting.activity.BaseActivity;
 import com.online.meeting.databinding.ActivityFirstBinding;
 import com.online.meeting.utils.AppLogger;
 
@@ -45,6 +48,7 @@ public class VMFirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ActivityFirstBinding activityFirstBinding = DataBindingUtil.setContentView(this, R.layout.activity_first);
+
 
         mClickBtn = findViewById(R.id.btn_click);
         mTipTextView = findViewById(R.id.tv_tip);
@@ -78,7 +82,9 @@ public class VMFirstActivity extends AppCompatActivity {
                 Random random = new Random();
                 int classId = random.nextInt(Integer.MAX_VALUE);
 
-                mViewModel.getClassInfoLiveData().postValue(new MyClassInfo(classId, "第" + classId + "班"));
+//                mViewModel.getClassInfoLiveData().postValue(new MyClassInfo(classId, "第" + classId + "班"));
+
+                startActivity(new Intent(VMFirstActivity.this, VMSecondActivity.class));
             }
         });
 
@@ -114,8 +120,6 @@ public class VMFirstActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.ll_body, new MyFragment());
             fragmentTransaction.commit();
         }
-
-
 
 
     }
