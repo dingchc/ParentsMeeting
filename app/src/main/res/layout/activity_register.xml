@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="viewMode"
+            type="com.online.meeting.viewmodel.RegisterViewModel" />
     </data>
 
     <LinearLayout
@@ -21,21 +24,25 @@
 
         <!-- 学段 -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_learning_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/ed_learning_section"
                 style="@style/PMStyle.InputText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/input_learning_section" />
+                android:hint="@string/input_learning_section"
+                android:text="@={viewMode.leaningSection}"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <!-- 入学年份 -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_learning_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -43,14 +50,17 @@
             android:layout_marginTop="@dimen/activity_vertical_margin">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/ed_learning_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/input_learning_year" />
+                android:hint="@string/input_learning_year"
+                android:text="@={viewMode.leaningYear}"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <!-- 名称 -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_student_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -58,14 +68,17 @@
             android:layout_marginTop="@dimen/activity_vertical_margin">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/ed_student_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/input_student_name" />
+                android:hint="@string/input_student_name"
+                android:text="@={viewMode.studentName}"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <!-- 身份 -->
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/il_select_role"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -73,9 +86,11 @@
             android:layout_marginTop="@dimen/activity_vertical_margin">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/ed_select_role"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/input_select_role" />
+                android:hint="@string/input_select_role"
+                android:text="@={viewMode.selectRole}"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -86,7 +101,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
-            android:text="@string/login"/>
+            android:text="@string/login"
+            android:onClick="onRegisterBtnClick"/>
 
     </LinearLayout>
 

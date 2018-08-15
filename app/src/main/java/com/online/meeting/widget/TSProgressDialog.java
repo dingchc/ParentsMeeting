@@ -17,7 +17,7 @@ import com.online.meeting.utils.AppLogger;
  * @author ding
  * Created by Ding on 11/8/15.
  */
-public class MsProgressDialog extends AlertDialog {
+public class TSProgressDialog extends AlertDialog {
 
     private Context mContext = null;
     private View mContentView = null;
@@ -28,7 +28,7 @@ public class MsProgressDialog extends AlertDialog {
     private CancelDialogListener cancelDialogListener;
 
 
-    public MsProgressDialog(Context context) {
+    public TSProgressDialog(Context context) {
         super(context);
         mContext = context;
         mContentView = LayoutInflater.from(context).inflate(R.layout.bg_dialog_progress, null);

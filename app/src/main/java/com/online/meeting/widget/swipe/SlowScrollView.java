@@ -1,4 +1,4 @@
-package com.online.meeting.widget;
+package com.online.meeting.widget.swipe;
 
 import android.content.Context;
 import android.util.AttributeSet;

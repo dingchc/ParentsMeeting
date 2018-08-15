@@ -49,7 +49,6 @@ public class VMFirstActivity extends AppCompatActivity {
 
         ActivityFirstBinding activityFirstBinding = DataBindingUtil.setContentView(this, R.layout.activity_first);
 
-
         mClickBtn = findViewById(R.id.btn_click);
         mTipTextView = findViewById(R.id.tv_tip);
         mLLayout = findViewById(R.id.ll_body);

@@ -49,7 +49,6 @@ public class TSToolbar extends Toolbar implements View.OnClickListener {
     protected ToolbarClickListener mToolbarClickListener;
     protected int mScreenWidth;
 
-
     /**
      * 上下文
      */
@@ -104,7 +103,7 @@ public class TSToolbar extends Toolbar implements View.OnClickListener {
      *
      * @param clickListener 回调
      */
-    public void setmToolbarClickListener(ToolbarClickListener clickListener) {
+    public void setToolbarClickListener(ToolbarClickListener clickListener) {
         this.mToolbarClickListener = clickListener;
     }
 

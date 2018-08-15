@@ -20,7 +20,7 @@ import com.online.meeting.listener.IDialogCallback;
  *
  * @author Ding
  */
-public class CommonDialog extends AlertDialog implements View.OnClickListener {
+public class TSCommonDialog extends AlertDialog implements View.OnClickListener {
     private Context mContext = null;
     private View mContentView = null;
     private View mCancelBtnView = null;
@@ -50,7 +50,7 @@ public class CommonDialog extends AlertDialog implements View.OnClickListener {
      */
     private String mCancel;
 
-    public CommonDialog(Context context, IDialogCallback iDialogCommonListener, String mTitle, String mContent, String mOK, String mCancel) {
+    public TSCommonDialog(Context context, IDialogCallback iDialogCommonListener, String mTitle, String mContent, String mOK, String mCancel) {
         super(context);
         this.mContext = context;
         this.listener = iDialogCommonListener;
@@ -61,7 +61,7 @@ public class CommonDialog extends AlertDialog implements View.OnClickListener {
         this.mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_common, null);
     }
 
-    public CommonDialog(Context context, IDialogCallback iDialogCommonListener, String mTitle, SpannableString spannableString, String mOK, String mCancel) {
+    public TSCommonDialog(Context context, IDialogCallback iDialogCommonListener, String mTitle, SpannableString spannableString, String mOK, String mCancel) {
         super(context);
         this.mContext = context;
         this.listener = iDialogCommonListener;
