@@ -12,6 +12,7 @@ import android.transition.Fade
 import android.transition.Slide
 import android.transition.Transition
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.Toast
 import com.online.meeting.R
 import com.online.meeting.utils.AppLogger
@@ -69,8 +70,12 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
             window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
 
+        setContentView(R.layout.activity_base)
+
         // 恢复数据
         restoreData(savedInstanceState)
+
+        init()
 
         // 转场动画
         if (isSupportTransitionAnimation()) {
@@ -292,6 +297,13 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
         mToolbar?.setTitle(getString(resId))
     }
 
+    /**
+     * 获取设置contentView
+     *
+     * @return 控件
+     */
+    protected abstract fun getContentLayout(): View
+
     // ######################################## private fun ########################################
 
     /**
@@ -300,6 +312,11 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
     private fun init() {
 
         AppLogger.i("init")
+
+        val frameLayout: FrameLayout = findViewById(R.id.flyt_content)
+        frameLayout.addView(getContentLayout())
+
+        initToolbar()
 
         initVariables()
 
@@ -394,7 +411,7 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
             }
 
         } catch (e: Exception) {
-            AppLogger.e("" + e.message)
+            // I know ...
         }
 
     }

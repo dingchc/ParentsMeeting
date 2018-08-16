@@ -35,4 +35,8 @@ class RegisterViewModel(app: Application) : AndroidViewModel(app) {
     val selectRole: MutableLiveData<String> = MutableLiveData()
 
 
+    fun print() {
+
+        AppLogger.i("" + leaningSection.value + ", " + leaningYear.value + ", " + studentName.value + ", " + selectRole.value)
+    }
 }

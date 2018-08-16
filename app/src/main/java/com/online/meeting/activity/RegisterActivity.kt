@@ -4,11 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import com.online.meeting.R
 import com.online.meeting.databinding.ActivityRegisterBinding
 import com.online.meeting.utils.AppLogger
 import com.online.meeting.viewmodel.RegisterViewModel
+import java.util.*
 
 /**
  * 注册页面
@@ -16,6 +18,7 @@ import com.online.meeting.viewmodel.RegisterViewModel
  * Created by Ding on 2018/8/14.
  */
 class RegisterActivity : BaseActivity() {
+
 
     /**
      * ViewMode
@@ -27,31 +30,12 @@ class RegisterActivity : BaseActivity() {
      */
     var mDataBinding: ActivityRegisterBinding? = null
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-
-        mDataBinding = DataBindingUtil.setContentView<ActivityRegisterBinding>(this@RegisterActivity, R.layout.activity_register)
-
-        initToolbar()
-
-        setToolbarTitle(R.string.register)
-
-        mViewMode = ViewModelProviders.of(this@RegisterActivity).get(RegisterViewModel::class.java)
-
-        mDataBinding?.setLifecycleOwner(this@RegisterActivity)
-
-        mDataBinding?.viewMode = mViewMode
-
-
-
-    }
-
     /**
      * 初始化组件
      */
     override fun initViews() {
+
+        setToolbarTitle(R.string.register)
     }
 
     /**
@@ -65,6 +49,11 @@ class RegisterActivity : BaseActivity() {
      */
     override fun initData() {
 
+        mViewMode = ViewModelProviders.of(this@RegisterActivity).get(RegisterViewModel::class.java)
+
+        mDataBinding?.setLifecycleOwner(this@RegisterActivity)
+
+        mDataBinding?.viewMode = mViewMode
     }
 
 
@@ -83,6 +72,21 @@ class RegisterActivity : BaseActivity() {
     fun onRegisterBtnClick(view : View) {
 
         mDataBinding?.ilLearningSection?.error = "太短了"
+
+        mViewMode?.leaningSection?.value = "" + Random().nextInt(100)
+
+        mViewMode?.print()
+    }
+
+    /**
+     * 获取设置contentView
+     *
+     * @return 控件
+     */
+    override fun getContentLayout(): View {
+
+        mDataBinding = DataBindingUtil.inflate(layoutInflater, R.layout.activity_register, null, false)
+        return mDataBinding!!.root
     }
 
 }
