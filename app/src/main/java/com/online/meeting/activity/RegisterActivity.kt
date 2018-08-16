@@ -1,11 +1,9 @@
 package com.online.meeting.activity
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
+import com.online.meeting.app.PMApplication
 import com.online.meeting.R
 import com.online.meeting.databinding.ActivityRegisterBinding
 import com.online.meeting.utils.AppLogger
@@ -71,11 +69,14 @@ class RegisterActivity : BaseActivity() {
      */
     fun onRegisterBtnClick(view : View) {
 
-        mDataBinding?.ilLearningSection?.error = "太短了"
+        mDataBinding?.ilLearningSection?.error = "输入错误"
 
         mViewMode?.leaningSection?.value = "" + Random().nextInt(100)
 
         mViewMode?.print()
+
+        AppLogger.i("PMApplication.instance = " + PMApplication.instance)
+
     }
 
     /**

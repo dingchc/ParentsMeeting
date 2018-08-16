@@ -1,5 +1,6 @@
 package com.online.meeting.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.annotation.StringRes
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.widget.SlidingPaneLayout
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.transition.Explode
 import android.transition.Fade
 import android.transition.Slide
@@ -16,6 +18,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import com.online.meeting.R
 import com.online.meeting.utils.AppLogger
+import com.online.meeting.utils.DialogUtil
 import com.online.meeting.utils.Util
 import com.online.meeting.widget.TSProgressDialog
 import com.online.meeting.widget.TSToolbar
@@ -135,7 +138,7 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
         outState!!.putString("path", photoPath)
     }
 
-    // ######################################## protected fun ########################################
+    // ######################################## open fun ######################################
 
     /**
      * 左侧标题被点击
@@ -149,24 +152,145 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
      */
     open fun onLeftIconClick() {
 
-        AppLogger.i("onLeftIconClick")
-
         finishCompat()
     }
 
     /**
      * 右侧标题被点击
      */
-    fun onRightTitleClick() {
+    open fun onRightTitleClick() {
 
     }
 
     /**
      * 右侧图标被点击
      */
-    fun onRightIconClick() {
+    open fun onRightIconClick() {
 
     }
+
+    /**
+     * 取消加载对话框
+     */
+    open fun onCancelProgressDialog() {
+
+    }
+
+    // ######################################### public fun ########################################
+
+
+    /**
+     * 显示加载对话框
+     *
+     * @param tip 提示内容
+     */
+    fun showProgressDialog(tip: String) {
+
+        if (mProcessDialog == null) {
+            mProcessDialog = DialogUtil.createProgressDialog(this)
+        }
+
+        mProcessDialog?.setCancelable(true)
+        mProcessDialog?.setCanceledOnTouchOutside(false)
+
+        if (!mProcessDialog!!.isShowing) {
+            mProcessDialog?.show()
+        }
+
+        if (!TextUtils.isEmpty(tip)) {
+            mProcessDialog?.setTipMessage(tip)
+        }
+
+        mProcessDialog?.setCancelBtnVisible(View.GONE)
+        mProcessDialog?.setOnCancelListener(DialogInterface.OnCancelListener { onCancelProgressDialog() })
+
+    }
+
+    /**
+     * 隐藏加载对话框
+     */
+    fun hiddenProgressDialog() {
+
+        mProcessDialog?.dismiss()
+    }
+
+    override fun onBackPressed() {
+
+        hiddenToast()
+
+        finishCompat()
+    }
+
+    /**
+     * 隐藏Toast提示框
+     */
+    fun hiddenToast() {
+
+        mToast?.cancel()
+    }
+
+    /**
+     * 普通Toast
+     *
+     * @param resourceID 资源ID
+     */
+    fun showShortToast(resourceID: Int) {
+        Toast.makeText(this, resources.getString(resourceID), Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * 普通Toast
+     *
+     * @param msg 消息
+     */
+    fun showShortToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * 自定义Toast, 提示完成
+     *
+     * @param content 内容
+     */
+    fun showToastFinished(content: String) {
+
+        showToastFinished(content, false)
+    }
+
+    /**
+     * 自定义Toast, 提示错误
+     *
+     * @param content 内容
+     */
+    fun showToastError(content: String) {
+
+        showToastError(content, false)
+    }
+
+    /**
+     * 自定义Toast, 提示完成
+     *
+     * @param content        内容
+     * @param isLongDuration 时长
+     */
+    fun showToastFinished(content: String, isLongDuration: Boolean) {
+
+        DialogUtil.showWarningFinished(this, mToast, content, isLongDuration)
+    }
+
+    /**
+     * 自定义Toast, 提示错误
+     *
+     * @param content        内容
+     * @param isLongDuration 时长
+     */
+    fun showToastError(content: String, isLongDuration: Boolean) {
+
+        DialogUtil.showWarningError(this, mToast, content, isLongDuration)
+    }
+
+    // ######################################## protected fun ######################################
+
 
     /**
      * 等待转场动画结束
@@ -251,7 +375,7 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
     /**
      * 初始话toolbar
      */
-    protected fun initToolbar() {
+    private fun initToolbar() {
 
         mToolbar = findViewById(R.id.tool_bar)
         setSupportActionBar(mToolbar)
@@ -262,7 +386,7 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
     /**
      * 初始化成员
      */
-    protected fun initVariables() {
+    private fun initVariables() {
 
         if (mToast == null) {
 
@@ -292,7 +416,7 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
     /**
      * 设置Toolbar标题
      */
-    protected fun setToolbarTitle(@StringRes resId : Int) {
+    protected fun setToolbarTitle(@StringRes resId: Int) {
 
         mToolbar?.setTitle(getString(resId))
     }
@@ -304,14 +428,13 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
      */
     protected abstract fun getContentLayout(): View
 
+
     // ######################################## private fun ########################################
 
     /**
      * 初始化
      */
     private fun init() {
-
-        AppLogger.i("init")
 
         val frameLayout: FrameLayout = findViewById(R.id.flyt_content)
         frameLayout.addView(getContentLayout())

@@ -8,4 +8,8 @@
     <string name="loading">加载中&#8230;</string>
     <string name="cancel">取消</string>
     <string name="register">注册</string>
+    <string name="no_ops_permission">您没有%s权限</string>
+    <string name="tip_ops_permission">请进入手机系统设置的授权管理中心，授权应用权限。 </string>
+    <string name="confirm">确定</string>
+    <string name="tip">提示</string>
 </resources>
