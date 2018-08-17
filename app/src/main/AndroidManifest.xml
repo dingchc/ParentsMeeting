@@ -43,20 +43,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".viewmodel.VMFirstActivity"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".viewmodel.VMSecondActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
     </application>
 
 </manifest>
