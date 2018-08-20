@@ -12,4 +12,15 @@
     <string name="tip_ops_permission">请进入手机系统设置的授权管理中心，授权应用权限。 </string>
     <string name="confirm">确定</string>
     <string name="tip">提示</string>
+    <string name="permission_deny_to_settings">您没有权限，是否去设置？</string>
+    <string name="permission_camera_deny_to_settings">您需要相机权限，是否去设置？</string>
+    <string name="permission_audio_deny_to_settings">您需要麦克风权限，是否去设置？</string>
+    <string name="permission_phone_to_settings">您需要电话权限，是否去设置？</string>
+    <string name="permission_rw_storage_to_settings">您需要存储权限，是否去设置？</string>
+    <string name="permission_read_sms">您需要短信权限，是否去设置？</string>
+    <string name="permission_video">您需要相机权限和麦克风权限，是否去设置？</string>
+    <string name="permission_location">您需要位置权限，是否去设置？</string>
+    <string name="permission_phone_and_sms">您需要电话和短信权限，是否去设置？</string>
+    <string name="no_audio_record_permission">您没有录音权限</string>
+
 </resources>

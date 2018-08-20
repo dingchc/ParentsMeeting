@@ -17,9 +17,8 @@ import android.view.*
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.online.meeting.R
-import com.online.meeting.utils.AppLogger
-import com.online.meeting.utils.DialogUtil
-import com.online.meeting.utils.Util
+import com.online.meeting.listener.IDialogCallback
+import com.online.meeting.utils.*
 import com.online.meeting.widget.TSProgressDialog
 import com.online.meeting.widget.TSToolbar
 import com.online.meeting.widget.swipe.PageSlidingPaneLayout
@@ -370,6 +369,158 @@ abstract class BaseActivity : AppCompatActivity(), SlidingPaneLayout.PanelSlideL
             window.exitTransition = exitTransition.setDuration(ANIMATION_DURATION.toLong())
 
         }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        onPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    /**
+     * 判断是否权限已授权
+     *
+     * @param permissionRequest 权限请求
+     * @return true 已授权、 false 未授权
+     */
+    fun checkPermission(permissionRequest: MPermissionUtil.PermissionRequest): Boolean {
+
+        val isPermissionGranted = MPermissionUtil.checkPermission(this, permissionRequest)
+
+        if (!isPermissionGranted) {
+            return false
+        } else {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // 检查并提示用户是否拥有OPS权限
+                val isOpsGranted = CheckOpsUtil.checkOrNoteOpPermission(this, CheckOpsUtil.OP_TYPE_NOTE, permissionRequest.getPermissions())
+
+                // 没有Ops权限, 进行提示
+                if (!isOpsGranted) {
+
+                    Util.showOpsPermissionDenyDialog(this, getString(R.string.tip), getString(R.string.tip_ops_permission))
+                    return false
+                }
+            }
+
+        }
+
+        return true
+
+    }
+
+
+    /**
+     * 处理权限请求的返回
+     *
+     * @param requestCode  请求code
+     * @param permissions  权限（暂时保留）
+     * @param grantResults 权限结果
+     */
+    fun onPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+
+        AppLogger.i("requestCode=" + requestCode)
+
+        // 拍照
+        if (requestCode == MPermissionUtil.PermissionRequest.CAMERA.getRequestCode()) {
+
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_camera_deny_to_settings))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.AUDIO_RECORD.getRequestCode()) {
+
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_audio_deny_to_settings))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.PHONE.getRequestCode()) {
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_phone_to_settings))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.READ_WRITE_STORAGE.getRequestCode()) {
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_rw_storage_to_settings))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.READ_SMS.getRequestCode()) {
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_read_sms))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.VIDEO.getRequestCode()) {
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_video))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.LOCATION.getRequestCode()) {
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_location))
+                return
+            }
+        } else if (requestCode == MPermissionUtil.PermissionRequest.SAVE_IMAGE.getRequestCode()) {
+
+            // 授权失败
+            if (!MPermissionUtil.hasAllPermissionsGranted(grantResults)) {
+                showPermissionFailedDialog(getString(R.string.tip), getString(R.string.permission_rw_storage_to_settings))
+                return
+            }
+        }
+
+        // 保存图片
+        // 位置
+        // 视频
+        // 读短信
+        // 读写存储设备
+        // 电话
+        // 录音
+        // 到最后，代表权限已获得
+        onPermissionGranted(requestCode)
+    }
+
+    /**
+     * 权限获得
+     *
+     * @param requestCode 请求code
+     */
+    protected fun onPermissionGranted(requestCode: Int) {
+
+    }
+
+    /**
+     * 当授权失败后，反馈用户，是否进入设置页面
+     *
+     * @param title   标题
+     * @param message 消息
+     */
+    protected fun showPermissionFailedDialog(title: String, message: String) {
+
+        showPermissionFailedDialog(title, message, null)
+    }
+
+    /**
+     * 当授权失败后，反馈用户，是否进入设置页面
+     *
+     * @param title          标题
+     * @param message        消息
+     * @param dialogCallback 回调
+     */
+    protected fun showPermissionFailedDialog(title: String, message: String, dialogCallback: IDialogCallback?) {
+
+        Util.showPermissionFailedDialog(this, title, message, dialogCallback)
     }
 
     /**
